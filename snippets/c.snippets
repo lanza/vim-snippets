@@ -14,7 +14,7 @@ snippet mainn
 ##
 ## Preprocessor
 # #include <...>
-snippet inc
+snippet iangleh
 	#include <${1:stdio}.h>
 # #include "..."
 snippet Inc
@@ -38,15 +38,15 @@ snippet #if
 		${0:${VISUAL}}
 	#endif
 # header include guard
-snippet once
-	#ifndef ${1:`toupper(vim_snippets#Filename('$1_H', 'UNTITLED_H'))`}
+#snippet once
+#	#ifndef ${1:`toupper(vim_snippets#Filename('$1_H', 'UNTITLED_H'))`}
 
-	#define $1
+#	#define $1
 
-	${0}
+#	${0}
 
-	#endif /* end of include guard: $1 */
-# Disable C++ name mangling in C headers
+#	#endif /* end of include guard: $1 */
+## Disable C++ name mangling in C headers
 snippet nocxx
 	#ifdef __cplusplus
 	extern "C" {
@@ -141,14 +141,12 @@ snippet do
 ## Functions
 # function definition
 snippet fun
-	${1:void} ${2:function_name}(${3})
-	{
+	${1:void} ${2:function_name}(${3}) {
 		${4}
 	}
 # function definition with zero parameters
 snippet fun0
-	${1:void} ${2:function_name}()
-	{
+	${1:void} ${2:function_name}() {
 		${3}
 	}
 # function definition with Doxygen documentation
@@ -159,14 +157,12 @@ snippet dfun0
 	 *
 	 * \return ${3:Return parameter description}
 	 */
-	${4:void} ${5:function_name}()
-	{
+	${4:void} ${5:function_name}() {
 		${6}
 	}
 # function definition with one parameter
 snippet fun1
-	${1:void} ${2:function_name}(${3:Type} ${4:Parameter})
-	{
+	${1:void} ${2:function_name}(${3:Type} ${4:Parameter}) {
 		${5}
 	}
 # function definition with one parameter with  Doxygen documentation
@@ -178,14 +174,12 @@ snippet dfun1
 	 * \param $3 ${4:Parameter description}
 	 * \return ${5:Return parameter description}
 	 */
-	${6:void} ${7:function_name}(${8:Type} ${3:Parameter})
-	{
+	${6:void} ${7:function_name}(${8:Type} ${3:Parameter}) {
 		${9}
 	}
 # function definition with two parameters
 snippet fun2
-	${1:void} ${2:function_name}(${3:Type} ${4:Parameter}, ${5:Type} ${6:Parameter})
-	{
+	${1:void} ${2:function_name}(${3:Type} ${4:Parameter}, ${5:Type} ${6:Parameter}) {
 		${7}
 	}
 # function definition with two parameters with  Doxygen documentation
@@ -198,14 +192,12 @@ snippet dfun2
 	 * \param $5 ${6:Parameter description}
 	 * \return ${7:Return parameter description}
 	 */
-	${8:void} ${9:function_name}(${10:Type} ${3:Parameter}, ${11:Type} ${5:Parameter})
-	{
+	${8:void} ${9:function_name}(${10:Type} ${3:Parameter}, ${11:Type} ${5:Parameter}) {
 		${12}
 	}
 # function definition with three parameters
 snippet fun3
-	${1:void} ${2:function_name}(${3:Type} ${4:Parameter}, ${5:Type} ${6:Parameter}, ${7:Type} ${8:Parameter})
-	{
+	${1:void} ${2:function_name}(${3:Type} ${4:Parameter}, ${5:Type} ${6:Parameter}, ${7:Type} ${8:Parameter}) {
 		${9}
 	}
 # function definition with three parameters with  Doxygen documentation
@@ -219,8 +211,7 @@ snippet dfun3
 	 * \param $7 ${8:Parameter description}
 	 * \return ${9:Return parameter description}
 	 */
-	${10:void} ${11:function_name}(${12:Type} ${3:Parameter}, ${13:Type} ${5:Parameter}, ${14:Type} ${7:Parameter})
-	{
+	${10:void} ${11:function_name}(${12:Type} ${3:Parameter}, ${13:Type} ${5:Parameter}, ${14:Type} ${7:Parameter}) {
 		${15}
 	}
 # function declaration
@@ -233,37 +224,19 @@ snippet td
 	typedef ${1:int} ${2:MyCustomType};
 # struct
 snippet st
-	/*! \struct $1
-	 *  \brief ${3:Brief struct description}
-	 *
-	 *  ${4:Detailed description}
-	 */
 	struct ${1:`vim_snippets#Filename('$1_t', 'name')`} {
 		${2:Data} /*!< ${4:Description} */
 	}${5: /* optional variable list */};
 # typedef struct
 snippet tds
-	/*! \struct $2
-	 *  \brief ${5:Brief struct description}
-	 *
-	 *  ${6:Detailed description}
-	 */
 	typedef struct ${2:_$1 }{
 		m_${3:Data} /*!< ${4:Description} */
 	} ${1:`vim_snippets#Filename('$1_t', 'name')`};
 
 snippet enum
-	/*! \enum $1
-	 *
-	 *  ${2:Detailed description}
-	 */
 	enum ${1:name} { ${0} };
 # typedef enum
 snippet tde
-	/*! \enum $2
-	 *
-	 *  ${4:Detailed description}
-	 */
 	typedef enum {
 		${1:Data} /*!< ${3:Description} */
 	} ${2:foo};
@@ -292,10 +265,8 @@ snippet errx
 # getopt
 snippet getopt
 	int choice;
-	while (1)
-	{
-		static struct option long_options[] =
-		{
+	while (1) {
+		static struct option long_options[] = {
 			/* Use flags like so:
 			{"verbose",	no_argument,	&verbose_flag, 'V'}*/
 			/* Argument styles: no_argument, required_argument, optional_argument */
@@ -318,8 +289,7 @@ snippet getopt
 		if (choice == -1)
 			break;
 
-		switch( choice )
-		{
+		switch( choice ) {
 			case 'v':
 				${2}
 				break;
@@ -339,10 +309,8 @@ snippet getopt
 	}
 
 	/* Deal with non-option arguments here */
-	if ( optind < argc )
-	{
-		while ( optind < argc )
-		{
+	if ( optind < argc ) {
+		while ( optind < argc ) {
 			${0}
 		}
 	}
@@ -381,7 +349,7 @@ snippet todo
 	 */
 ## Miscellaneous
 # This is kind of convenient
-snippet .
+snippet aa
 	[${1}]
 
 snippet asm

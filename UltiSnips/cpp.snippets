@@ -54,20 +54,17 @@ ${1:v}${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}begin(), $1${1/^.*?(-)?(>)?$/(?2::(?1:>:
 endsnippet
 
 snippet cl "class .. (class)"
-class ${1:`!p snip.rv = snip.basename or "name"`}
-{
+class ${1:`!p snip.rv = snip.basename or "name"`} {
+	${0:/* data */}
+
 public:
 	${1/(\w+).*/$1/} (${2:arguments});
 	virtual ~${1/(\w+).*/$1/} ();
-
-private:
-	${0:/* data */}
 };
 endsnippet
 
 snippet ns "namespace .. (namespace)"
-namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`}
-{
+namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`} {
 	${VISUAL}$0
 }${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
 endsnippet
@@ -82,11 +79,10 @@ endsnippet
 
 snippet readfile "read file (readF)"
 std::vector<char> v;
-if (FILE *fp = fopen(${1:"filename"}, "r"))
-{
-	char buf[1024];
-	while(size_t len = fread(buf, 1, sizeof(buf), fp))
-		v.insert(v.end(), buf, buf + len);
+if (FILE *fp = fopen(${1:"filename"}, "r")) {
+	char buffer[1024];
+	while (size_t length = fread(buffer, 1, sizeof(buffer), fp))
+		v.insert(v.end(), buffer, buffer + length);
 	fclose(fp);
 }
 endsnippet
@@ -104,43 +100,37 @@ template <typename ${1:_InputIter}>
 endsnippet
 
 snippet cla "An entire .h generator" b
-#ifndef ${2:`!v substitute(vim_snippets#Filename('$1_H','ClassName'),'.*','\U&\E','')`}
-#define $2
+#pragma once
 
-class ${1:`!v substitute(substitute(vim_snippets#Filename('$1','ClassName'),'^.','\u&',''), '_\(\w\)', '\u\1', 'g')`}
-{
-private:
+class ${1:`!v substitute(substitute(vim_snippets#Filename('$1','ClassName'),'^.','\u&',''), '_\(\w\)', '\u\1', 'g')`} {
 	$3
 
 public:
 	$1();
 	virtual ~$1();
 };
-
-#endif /* $2 */
 endsnippet
 
 
-snippet fnc "Basic c++ doxygen function template" b
-/**
-* @brief: ${4:brief}
-*
-* @param: `!p write_docstring_args(t[3],snip)`
-*
-* @return: `!p snip.rv = t[1]`
-*/
-${1:ReturnType} ${2:FunctionName}(${3:param})
-{
-	${0:FunctionBody}
-}
-endsnippet
+# snippet fnc "Basic c++ doxygen function template" b
+# /**
+# * @brief: ${4:brief}
+# *
+# * @param: `!p write_docstring_args(t[3],snip)`
+# *
+# * @return: `!p snip.rv = t[1]`
+# */
+# ${1:ReturnType} ${2:FunctionName}(${3:param})
+# {
+# 	${0:FunctionBody}
+# }
+# endsnippet
 
 snippet boost_test "Boost test module" b
 #define BOOST_TEST_MODULE ${1:TestModuleName}
 #include <boost/test/included/unit_test.hpp>
 
-BOOST_AUTO_TEST_CASE(${2:TestCaseName})
-{
+BOOST_AUTO_TEST_CASE(${2:TestCaseName}) {
 	${0:TestDefinition}
 }
 
@@ -152,8 +142,7 @@ snippet boost_suite "Boost test suite module" b
 
 BOOST_AUTO_TEST_SUITE(${2:SuiteName})
 
-BOOST_AUTO_TEST_CASE(${3:TestCaseName})
-{
+BOOST_AUTO_TEST_CASE(${3:TestCaseName}) {
 	${0:TestDefinition}
 }
 
@@ -170,8 +159,7 @@ struct ${2:FixtureName} {
 	/* define members here */
 };
 
-BOOST_FIXTURE_TEST_CASE(${3:SuiteName}, $2)
-{
+BOOST_FIXTURE_TEST_CASE(${3:SuiteName}, $2) {
 	${0:TestDefinition}
 }
 
@@ -189,8 +177,7 @@ struct ${2:FixtureName} {
 
 BOOST_FIXTURE_TEST_SUITE(${3:SuiteName}, $2)
 
-BOOST_AUTO_TEST_CASE(${4:TestCaseName})
-{
+BOOST_AUTO_TEST_CASE(${4:TestCaseName}) {
 	${0:TestDefinition}
 }
 
