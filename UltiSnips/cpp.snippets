@@ -91,19 +91,6 @@ snippet tp "template <typename ..> (template)"
 template <typename ${1:_InputIter}>
 endsnippet
 
-snippet cla "An entire .h generator" b
-#pragma once
-
-class ${1:`!v substitute(substitute(vim_snippets#Filename('$1','ClassName'),'^.','\u&',''), '_\(\w\)', '\u\1', 'g')`} {
-  $3
-
-public:
-  $1();
-  virtual ~$1();
-};
-endsnippet
-
-
 # snippet fnc "Basic c++ doxygen function template" b
 # /**
 # * @brief: ${4:brief}
